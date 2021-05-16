@@ -4,7 +4,7 @@ import { Button } from "./Button";
 
 import { api } from "../services/api";
 
-import Genre from '../@types/Genre';
+import GenreProps from '../@types/GenreProps';
 
 interface SideBarProps {
   selectedGenreId: number;
@@ -12,10 +12,10 @@ interface SideBarProps {
 }
 
 export function SideBar({ selectedGenreId, setSelectedGenreId }: SideBarProps) {
-  const [genres, setGenres] = useState<Genre[]>([]);
+  const [genres, setGenres] = useState<GenreProps[]>([]);
 
   useEffect(() => {
-    api.get<Genre[]>("genres").then((response) => {
+    api.get<GenreProps[]>("genres").then((response) => {
       setGenres(response.data);
     });
   }, []);
