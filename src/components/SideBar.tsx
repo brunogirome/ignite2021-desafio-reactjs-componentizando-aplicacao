@@ -4,11 +4,7 @@ import { Button } from "./Button";
 
 import { api } from "../services/api";
 
-export interface GenreResponseProps {
-  id: number;
-  name: "action" | "comedy" | "documentary" | "drama" | "horror" | "family";
-  title: string;
-}
+import Genre from '../@types/Genre';
 
 interface SideBarProps {
   selectedGenreId: number;
@@ -16,10 +12,10 @@ interface SideBarProps {
 }
 
 export function SideBar({ selectedGenreId, setSelectedGenreId }: SideBarProps) {
-  const [genres, setGenres] = useState<GenreResponseProps[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
 
   useEffect(() => {
-    api.get<GenreResponseProps[]>("genres").then((response) => {
+    api.get<Genre[]>("genres").then((response) => {
       setGenres(response.data);
     });
   }, []);

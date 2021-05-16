@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { MovieCard } from "./components/MovieCard";
-import { SideBar, GenreResponseProps } from "./components/SideBar";
+import { SideBar } from "./components/SideBar";
 // import { Content } from './components/Content';
 
 import { api } from "./services/api";
+
+import Genre from "./@types/Genre";
 
 import "./styles/global.scss";
 
@@ -27,9 +29,7 @@ export function App() {
 
   const [movies, setMovies] = useState<MovieProps[]>([]);
 
-  const [selectedGenre, setSelectedGenre] = useState<GenreResponseProps>(
-    {} as GenreResponseProps
-  );
+  const [selectedGenre, setSelectedGenre] = useState<Genre>({} as Genre);
 
   useEffect(() => {
     api
@@ -38,11 +38,9 @@ export function App() {
         setMovies(response.data);
       });
 
-    api
-      .get<GenreResponseProps>(`genres/${selectedGenreId}`)
-      .then((response) => {
-        setSelectedGenre(response.data);
-      });
+    api.get<Genre>(`genres/${selectedGenreId}`).then((response) => {
+      setSelectedGenre(response.data);
+    });
   }, [selectedGenreId]);
 
   return (
